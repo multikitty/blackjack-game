@@ -9,7 +9,7 @@
         points (cards-points new-cards)]
     (assoc game :cards new-cards :points points)))
 
-(defn verify-end-game [game]
+(defn end-game? [game]
   (let [points (get game :points)]
     (if (>= points 21) true false)))
 
