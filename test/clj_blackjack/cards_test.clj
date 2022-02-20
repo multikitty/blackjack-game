@@ -1,6 +1,6 @@
 (ns clj-blackjack.cards-test
   (:require [clojure.test :refer :all])
-  (:require [clj-blackjack.cards :refer [new-card value-of-cards value-of-'as'-card-to-eleven]]))
+  (:require [clj-blackjack.cards :refer [new-card value-of-cards value-of-'as'-card-to-eleven cards-points]]))
 
 (deftest should-not-return-more-than-13-or-less-than-1-value
   (doseq [_ (range 100)]                                    ;simulate 100 times the new-card random generated
@@ -14,7 +14,7 @@
       (is (= converted 10)))))
 
 (deftest should-return-the-same-value-with-values-less-than-10
-  (doseq [card (range 0 11)]                                 ;range end exclusive
+  (doseq [card (range 0 11)]                                ;range end exclusive
     (let [converted (value-of-cards card)]
       (is (= converted card)))))
 
@@ -27,3 +27,13 @@
     (is (= (map value-of-'as'-card-to-eleven expected-values) expected-values))
     (is (not= (map value-of-'as'-card-to-eleven values-than-need-conversion) values-than-need-conversion))
     (is (= (map value-of-'as'-card-to-eleven values-than-need-conversion) expected-values))))
+
+(deftest should-calculate-value-cards-with-the-card-A-having-a-value-of-11
+  (let [cards [1 2 3]                                       ;if card A have value 1 the result would be 6
+        expected 16]
+    (is (= (cards-points cards) expected))))
+
+(deftest should-calculate-value-cards-with-the-card-A-having-a-value-of-1
+  (let [cards [1 11 5]                                      ;if card A have value 11 the result would be 27
+        expected 16]
+    (is (= (cards-points cards) expected))))
