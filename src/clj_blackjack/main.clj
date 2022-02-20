@@ -1,5 +1,5 @@
 (ns clj-blackjack.main
-  (:require [clj-blackjack.game :refer [new-game game-cards-to-show add-new-card-in-game]]))
+  (:require [clj-blackjack.game :refer [new-game game-cards-to-show add-new-card-in-game verify-end-game]]))
 
 (println "Enter with player name:")
 (def player-game (new-game (read-line)))
@@ -26,11 +26,10 @@
 
 (defn play [game decision?]
   (if (decision? game)
-    (let [new-game (add-new-card-in-game game)
-          new-points (:points new-game)]
-      (if (< new-points 21)
-          (play new-game decision?)
-          new-game))
+    (let [new-game (add-new-card-in-game game)]
+      (if (verify-end-game new-game)
+          new-game
+          (play new-game decision?)))
     game))
 
 ; Start the game
@@ -40,3 +39,4 @@
 (def dealer-game-end (play dealer-game (partial dealer-decision-continue? player-game-end)))
 (display-cards dealer-game-end)
 
+; TODO - show message win game
