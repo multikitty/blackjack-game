@@ -29,11 +29,11 @@
     (is (= (map value-of-'as'-card-to-eleven values-than-need-conversion) expected-values))))
 
 (deftest should-calculate-value-cards-with-the-card-A-having-a-value-of-11
-  (let [cards [1 2 3]                                       ;if card A have value 1 the result would be 6
+  (let [cards [1 2 3]                                       ;if card A(1) have value 1 the result would be 6
         expected 16]
     (is (= (cards-points cards) expected))))
 
 (deftest should-calculate-value-cards-with-the-card-A-having-a-value-of-1
-  (let [cards [1 11 5]                                      ;if card A have value 11 the result would be 27
+  (let [cards [1 11 5]                                      ;if card A(1) have value 11 the result would be 27
         expected 16]
     (is (= (cards-points cards) expected))))

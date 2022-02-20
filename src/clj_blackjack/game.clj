@@ -9,11 +9,13 @@
         points (cards-points new-cards)]
     (assoc game :cards new-cards :points points)))
 
+(defn verify-end-game [game]
+  (let [points (get game :points)]
+    (if (>= points 21) true false)))
+
 (defn new-game [player-name]
   (let [cards [(new-card) (new-card)]
         points (cards-points cards)]
-    {:player-name player-name
+    {:name player-name
      :cards       cards
      :points      points}))
-
-; TODO - create flow game
